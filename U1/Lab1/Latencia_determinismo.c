@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <pigpio.h>
 
-#define LED 18
+#define LED 24
 #define BOTON 23
 #define MUESTRAS 20
 
@@ -11,7 +11,7 @@ int contador = 0;
 // función de interrupción
 void boton_callback(int gpio, int level, uint32_t tick)
 {
-    if (level == 1 && contador < MUESTRAS) {
+    if (level == 0 && contador < MUESTRAS) {
 
         uint32_t t_encendido = gpioTick();
 
@@ -25,7 +25,7 @@ void boton_callback(int gpio, int level, uint32_t tick)
         printf("Pulsacion %d -> Latencia: %u us\n", contador, latencia);
     }
 
-    if (level == 0) {
+    if (level == 1) {
         gpioWrite(LED, 0);
     }
 }
@@ -67,7 +67,7 @@ int main()
     gpioSetMode(LED, PI_OUTPUT);
     gpioSetMode(BOTON, PI_INPUT);
 
-    gpioSetPullUpDown(BOTON, PI_PUD_DOWN);
+    //gpioSetPullUpDown(BOTON, PI_PUD_UP);
 
     gpioSetAlertFunc(BOTON, boton_callback);
 

@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <pigpio.h>
 
-#define LED 18
+#define LED 24
 #define BOTON 23
+//servo 18
 
 // función de interrupción
 void boton_callback(int gpio, int level, uint32_t tick)
 {
-    if (level == 1) {
+    if (level == 0) {
         gpioWrite(LED, 1);
         printf("BOTON_PRESIONADO\n");
     }
-    else if (level == 0) {
+    else if (level == 1) {
         gpioWrite(LED, 0);
         printf("BOTON_LIBERADO\n");
     }
@@ -27,7 +28,7 @@ int main()
     gpioSetMode(LED, PI_OUTPUT);
     gpioSetMode(BOTON, PI_INPUT);
 
-    gpioSetPullUpDown(BOTON, PI_PUD_DOWN);
+    //gpioSetPullUpDown(BOTON, PI_PUD_UP);
 
     gpioSetAlertFunc(BOTON, boton_callback);
 

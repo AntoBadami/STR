@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <pigpio.h>
 
-#define LED 18
+#define LED 24
 #define PERIODO 500000   // 500 ms
 
-void toggle_led(int LED,int *estado)
+void toggle_led(int pin,int *estado)
 {
     *estado = !(*estado);           
 
-    gpioWrite(LED, *estado);    
+    gpioWrite(pin, *estado);    
 
     if (*estado)
         printf("LED_ON\n");
