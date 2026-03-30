@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <pigpio.h>
 
-#define SERVO 18
-#define BOTON 23
+#define SERVO 21
+#define BOTON 26
 
 #define DEBOUNCE_US 200000  // 200 ms en microsegundos
 
