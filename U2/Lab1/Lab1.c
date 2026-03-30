@@ -39,12 +39,12 @@ void boton_callback(int gpio, int level, uint32_t tick)
 
         if (emergencia)
         {
-            printf("[SIMULACION] LED ENCENDIDO\n");
+            gpioWrite(LED, 1);
             printf("[ALERTA] Parada de emergencia activada\n");
         }
         else
         {
-            printf("[SIMULACION] LED APAGADO\n");
+            gpioWrite(LED, 0);
             printf("[INFO] Sistema reanudado\n");
         }
 
