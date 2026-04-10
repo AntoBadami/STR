@@ -1,0 +1,18 @@
+**Resumen de la función `pthread_create()`**
+
+La función `pthread_create()` pertenece a la biblioteca POSIX Threads (pthreads) y se utiliza para crear un nuevo hilo de ejecución dentro de un proceso. Su objetivo principal es permitir la ejecución concurrente de múltiples tareas, compartiendo el mismo espacio de memoria.
+
+Su prototipo es:
+
+```c
+int pthread_create(pthread_t *thread,
+                   const pthread_attr_t *attr,
+                   void *(*start_routine)(void *),
+                   void *arg);
+```
+
+El primer parámetro (`thread`) es un puntero a una variable donde se almacenará el identificador del hilo creado, lo que permite posteriormente operar sobre él. El segundo parámetro (`attr`) define los atributos del hilo, como su estado (joinable o detached), tamaño de pila o política de planificación; en caso de no requerir configuraciones especiales, se puede pasar `NULL` para utilizar los valores por defecto. El tercer parámetro (`start_routine`) es un puntero a la función que ejecutará el hilo, la cual debe recibir un argumento de tipo `void *` y devolver un valor del mismo tipo. Por último, el parámetro (`arg`) corresponde al argumento que se le pasa a dicha función.
+
+La función retorna el valor 0 si la creación del hilo fue exitosa; en caso contrario, devuelve un código de error que indica la causa del fallo, como falta de recursos o atributos inválidos.
+
+En cuanto a su funcionamiento, al invocar `pthread_create()` se genera un nuevo hilo que comienza a ejecutar la función especificada de manera concurrente con el hilo principal. Todos los hilos comparten el mismo espacio de memoria del proceso, aunque cada uno posee su propia pila de ejecución. Esta característica permite una comunicación eficiente entre hilos, pero también requiere mecanismos de sincronización para evitar condiciones de carrera.
